@@ -12,7 +12,7 @@ router.post('/create', ConnectToDB, async function(req, res) {
     res.status(200).json({
       status: "Okay",
       statusMessage: "The book has been registered successfully.",
-      menssage: resBD,
+      message: resBD,
     })
 
   } catch (error) {
@@ -30,7 +30,23 @@ router.get('/read', ConnectToDB, async function(req, res) {
     res.status(200).json({
       status: "Okay",
       statusMessage: "Below is the list of books.",
-      menssage: resBD,
+      message: resBD,
+    })
+
+  } catch (error) {
+    return handleError(res,error);
+  }
+});
+
+router.get('/read/:id', ConnectToDB, async function(req, res) {
+  try {
+    let idBook = req.params.id
+    const resBD = await Book.find({id: idBook});
+
+    res.status(200).json({
+      status: "Okay",
+      statusMessage: "Below is the list of books.",
+      message: resBD,
     })
 
   } catch (error) {
@@ -54,7 +70,7 @@ router.put('/update/:id', ConnectToDB, async function(req, res) {
     res.status(200).json({
       status: "Okay",
       statusMessage: "The book was successfully changed.",
-      menssage: newbook,
+      message: newbook,
     })
   }
   } catch (error) {
@@ -73,7 +89,7 @@ router.delete('/delete/:id', ConnectToDB, async function(req, res) {
     res.status(200).json({
       status: "Okay",
       statusMessage: "The book has been successfully deleted.",
-      menssage: book,
+      message: book,
     })
 
   } catch (error) {
